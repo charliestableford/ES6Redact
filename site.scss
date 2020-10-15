@@ -33,7 +33,7 @@ margin-left: 4%;
 margin-bottom: 2%;
 }
 
-#page{
+.page{
 border: black solid 1px;
 position: relative;
 margin-left: 20%;
@@ -47,7 +47,7 @@ right: 18%;
 top: 450px;
 }
 
-#blackOut{
+.blackOut{
 background:$outline;
 color: $inner;
 border: none;
@@ -58,7 +58,7 @@ padding-bottom: 10px;
 font-size: 1.25em;
 }
 
-#erase{
+.erase{
 background:transparent;
 border: 1px solid black;
 color: $outline;
@@ -94,7 +94,7 @@ hr{
   margin-top: 20px;
 }
 
-#quoteOne{
+.quoteOne{
 background:$red;
 color: $inner;
 border: none;
@@ -108,7 +108,7 @@ margin-top: 30px;
 border-radius: 2px;
 }
 
-#quoteTwo{
+.quoteTwo{
 background:$blue;
 color: $inner;
 border: none;

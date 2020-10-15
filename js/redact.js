@@ -1,4 +1,3 @@
-// just empty object for now. 
 const Mouse = {
 	x: 0,
 	y: 0,
@@ -17,14 +16,16 @@ function endClickState(evt)
 
 function trackMouse(evt)
 {
-	canvas = document.getElementById("page");
+	console.log('tracking');
+	canvas = document.querySelector(".page");
 	// console.log("moved");
-	var rect = canvas.getBoundingClientRect();
+	const rect = canvas.getBoundingClientRect();
     Mouse.x = (evt.clientX - rect.left) / (rect.right - rect.left) * canvas.width;
     Mouse.y = (evt.clientY - rect.top) / (rect.bottom - rect.top) * canvas.height;
     
     if (App.mouseDown)
     {
+		console.log('in here?');
     	trackClick(evt);
     }
     App.render();
@@ -33,7 +34,7 @@ function trackMouse(evt)
 function trackClick(evt)
 {
 	Mouse.clickedPositions.push({x: Mouse.x, y: Mouse.y, action: App.mouseAction});
-    console.log();
+    console.log(evt);
 	App.render();
 }
 
@@ -90,10 +91,10 @@ class Writer
 
 	splitTextToLines(phrase,maxPxLength,textStyle) {
         if (!phrase) {
-            // if not defined then this
+            console.log('troubleshoot');
         }
-		var paragraphs = phrase.split('\n');
-        var phraseArray=[],
+		const paragraphs = phrase.split('\n');
+        let phraseArray=[],
 	        measure=0,
 	        splitChar=" ",
 	        lastPhrase = "";
@@ -102,7 +103,7 @@ class Writer
 		//console.log(paragraphs);
 		for (var a=0; a<paragraphs.length; a++)
     	{
-    		var phrase = paragraphs[a];
+    		const phrase = paragraphs[a];
     		//console.log("ph", phrase);
     		if (phrase=="")
     		{
@@ -112,7 +113,7 @@ class Writer
     		} else {
 
 	    		//console.log(phrase);
-	    		var wa=phrase.split(" ");
+	    		const wa=phrase.split(" ");
 	    		
 
 			    for (var i=0;i<wa.length;i++) {
@@ -179,10 +180,10 @@ function isCollide(a, mouse) {
     }
 }
 
-var dataURL;
+let dataURL;
 
-$("#btn-download").click(function(event){
-	// event.preventDefault();
+document.querySelector("#btn-download").addEventListener('click',function(event){
+	event.preventDefault();
 	dataURL = App.canvas.toDataURL('image/png');
 });
 
@@ -190,55 +191,81 @@ $(".direct").click(function(){
 	uploadCanvas(dataURL);
 });
 
-// function uploadCanvas(dataURL){
-// 	// console.log(dataURL);
-// 	// debugger;
-// 	$.ajax(
-// 		{
-// 			url: "index.php?controller=pages&route=uploadImg",
-// 			type: "POST",
-// 			data: { 
-// 		  imgBase64: dataURL,
-// 		 },
-// 		 success: function(){
-// 				console.log("It's working! (this part but isn't in the db)"); 
-// 			},
+function uploadCanvas(dataURL){
+	// console.log(dataURL);
+	// debugger;
+	$.ajax(
+		{
+			url: "index.php?controller=pages&route=uploadImg",
+			type: "POST",
+			data: { 
+		  imgBase64: dataURL,
+		 },
+		 success: function(){
+				console.log("It's working! (this part but isn't in the db)"); 
+			},
 	  
-// 		error: function(response)
-// 		{
-// 			console.log('made it in here but in the error function');
-// 			console.log(dataURL);
-// 		}
-// 		   });
+		error: function(response)
+		{
+			console.log('made it in here but in the error function');
+			console.log(dataURL);
+		}
+		   });
 	
-// 		return false;
-// }
+		return false;
+}
 
-var App = {
+
+const App = {
     blackOutColor: "black",
 	mouseAction: "blackOut", 
-    canvas: document.getElementById("page"),
-    ctx: document.getElementById("page").getContext("2d"),
+    canvas: document.querySelector(".page"),
+    ctx: document.querySelector(".page").getContext("2d"),
     clickedPositions: Mouse.clickedPositions,
 
 	init: function(element){
         App.quote = "";
 
-		document.getElementById("erase").addEventListener("click", function(){
+		document.querySelector(".erase").addEventListener("click", function(){
 			App.mouseAction = "erase";
             // console.log("You've clicked erase");
 			App.render();
 		});
 
-		// make this into DRY before handing in
-		document.getElementById("quoteOne").addEventListener("click", function(){      
+		document.querySelector(".quoteOne").addEventListener("click", function(){  
+			
+
+		// const endpoint = 'https://api.whatdoestrumpthink.com/api/v1/quotes/random';
+
+		// async function getQuote() {
+		// 	try {
+		// 	  const response = await fetch(endpoint)
+		// 	  if (!response.ok) {
+		// 		throw Error(response.statusText)
+		// 	  }
+		// 	  const json = await response.json();
+		// 	//   console.log(json.message);
+		// 	displayQuote(json.message);
+		// 	} catch (err) {
+		// 	  console.log(err)
+		// 	  alert('Failed to fetch new quote');
+		// 	}
+		//   }
+
+		  function displayQuote(quote) {
+			const quoteText = document.querySelector('.page');
+			quoteText.textContent = quote;
+			console.log(quote);
+		  }
+
+			//   App.quote = getQuote();
             App.quote =  quoteArrOne[Math.floor(Math.random()*quoteArrOne.length)];
             App.blackOut();
             App.render();
             App.clear();       
 		});
 
-        document.getElementById("quoteTwo").addEventListener("click", function(){      
+        document.querySelector(".quoteTwo").addEventListener("click", function(){      
             App.quote =  quoteArrTwo[Math.floor(Math.random()*quoteArrTwo.length)];
             App.blackOut();
             App.render();   
@@ -251,13 +278,12 @@ var App = {
             App.ctx.clearRect(0, 0, canvas.width, canvas.height);
             // clickX = []; clickY = []; clickDrag = [];  
             Mouse.clickedPositions= [];
-            // console.log("Are you in here Bob?");
             App.blackOut();
             App.render();
     },
 
     blackOut: function(){
-        var element = document.getElementById("blackOut").addEventListener("click", function(){
+        var element = document.querySelector(".blackOut").addEventListener("click", function(){
 			App.mouseAction = "blackOut";
             // console.log("We in here");
 			App.render();
@@ -266,9 +292,9 @@ var App = {
 
 	render: function(){
 
-		var canvas = document.getElementById("page");
+		var canvas = document.querySelector(".page");
 		var ctx = canvas.getContext("2d");
-		var quote = this.quote;
+		quoteText = this.quote;
 
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
 		writer = new Writer(ctx, 28);
@@ -277,25 +303,15 @@ var App = {
 
 		quoteArrTwo = ["If we are serious about climate change we can't just talk the talk, we've got to walk the walk and take on powerful special interests.", "Donald Trump believes climate change is a hoax. Donald Trump is an idoit.", "Abortion is a constitutional right", "I don't know if its a world record but Donald Trump has been sued more than 3,500 ties over the past 30 years.", "Thank you, I've had it, I'm going home, talk to you soon." , "Go vote or I'm sending everybody raisin cookes.", "In the United States it costs, on average, $12,000 to have a baby. In Finland it costs $60. We've got to end the disgrace of our profit-driven health care system and pass Medicare for all."];
 
-		// String(quoteArrOne);
+		String(quoteArrOne);
         // console.log(this.quote);
 		// console.log(typeof quoteArrOne);
 		writer.write(this.quote);
 		// console.log(this.quote);
 
-		$('#tweetIt').click(function(e){
-			// tell browser not to do the default action
-			e.preventDefault();
-			// get the quote from the quoteHolder
-			//put the image in the quote holder
-			var quote  = $('#quoteHolder').text();
-		   // trigger a new window with the Twitter dialog
-			window.open('https://twitter.com/share?url=undefined&text=' + quote,  'twitterwindow', 'height=450, width=550, top='+($(window).height()/2 - 225) +', left='+$(window).width()/2 +', toolbar=0, location=0, menubar=0, directories=0, scrollbars=0');
-		  });
 	},
 };
 
-// call it right away
 App.init();
 
 window.addEventListener('mousemove', trackMouse, false);

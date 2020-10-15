@@ -21,7 +21,7 @@ neon: #d5ff24;*/
   margin-bottom: 2%;
 }
 
-#page {
+.page {
   border: black solid 1px;
   position: relative;
   margin-left: 20%;
@@ -35,7 +35,7 @@ neon: #d5ff24;*/
   top: 450px;
 }
 
-#blackOut {
+.blackOut {
   background: #000000;
   color: #FFF;
   border: none;
@@ -46,7 +46,7 @@ neon: #d5ff24;*/
   font-size: 1.25em;
 }
 
-#erase {
+.erase {
   background: transparent;
   border: 1px solid black;
   color: #000000;
@@ -81,7 +81,7 @@ hr {
   margin-top: 20px;
 }
 
-#quoteOne {
+.quoteOne {
   background: #e21a22;
   color: #FFF;
   border: none;
@@ -95,7 +95,7 @@ hr {
   border-radius: 2px;
 }
 
-#quoteTwo {
+.quoteTwo {
   background: #0014b7;
   color: #FFF;
   border: none;
