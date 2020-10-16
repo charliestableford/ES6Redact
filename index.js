@@ -40,37 +40,40 @@ const Mouse = {
 	clickedPositions: []
 };
 
-function trackClickState(evt)
+function trackClickState(e)
 {
 	App.mouseDown = true;
 }
 
-function endClickState(evt)
+function endClickState(e)
 {
 	App.mouseDown = false;
 }
 
-function trackMouse(evt)
+function trackMouse(e)
 {
 	// console.log('tracking');
 	canvas = document.querySelector(".page");
 	// console.log("moved");
 	const rect = canvas.getBoundingClientRect();
-    Mouse.x = (evt.clientX - rect.left) / (rect.right - rect.left) * canvas.width;
-    Mouse.y = (evt.clientY - rect.top) / (rect.bottom - rect.top) * canvas.height;
+    Mouse.x = (e.clientX - rect.left) / (rect.right - rect.left) * canvas.width;
+    Mouse.y = (e.clientY - rect.top) / (rect.bottom - rect.top) * canvas.height;
     
     if (App.mouseDown)
     {
 		console.log('in here?');
-    	trackClick(evt);
+    	trackClick(e);
     }
     App.render();
 }
 
-function trackClick(evt)
+function trackClick(e)
 {
-	Mouse.clickedPositions.push({x: Mouse.x, y: Mouse.y, action: App.mouseAction});
-    // console.log(evt);
+	Mouse.clickedPositions.push({
+    x: Mouse.x, 
+    y: Mouse.y, 
+    action: App.mouseAction
+  });
 	App.render();
 }
 
@@ -137,9 +140,9 @@ class Writer
 	    
 	    this.ctx.font = textStyle;
 		//console.log(paragraphs);
-		for (var a=0; a<paragraphs.length; a++)
+		for (var i=0; i<paragraphs.length; i++)
     	{
-    		const phrase = paragraphs[a];
+    		const phrase = paragraphs[i];
     		//console.log("ph", phrase);
     		if (phrase=="")
     		{
@@ -148,7 +151,7 @@ class Writer
     			
     		} else {
 
-	    		//console.log(phrase);
+	    		console.log(phrase);
 	    		const wa=phrase.split(" ");
 	    		
 
@@ -185,7 +188,7 @@ class Word{
 		this.xEnd = x + this.width;
 		this.yEnd = this.boundingY + letterHeight;
 		this.color = "black"; // colour of the text
-        this.blackout = false;
+    this.blackout = false;
 		this.blackOutColor = App.blackOutColor; 
 	}
 
@@ -195,11 +198,16 @@ class Word{
 		this.ctx.fillText(this.text, this.x,this.y);
 
 if (this.blackOut)
-        {
-            this.ctx.fillStyle = this.blackOutColor;
+   {
+      this.ctx.fillStyle = this.blackOutColor;
 			this.ctx.globalCompositeOperation = "multiply";
-			this.ctx.fillRect(this.x, this.boundingY+this.letterHeight/2-3, this.width, this.letterHeight);
-        }
+			this.ctx.fillRect(
+        this.x, 
+        this.boundingY+this.letterHeight/2-3, 
+        this.width, 
+        this.letterHeight
+        );
+    }
 	}
 }
 
