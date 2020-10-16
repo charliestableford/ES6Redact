@@ -16,16 +16,14 @@ function endClickState(e)
 
 function trackMouse(e)
 {
-	// console.log('tracking');
 	canvas = document.querySelector(".page");
-	// console.log("moved");
 	const rect = canvas.getBoundingClientRect();
     Mouse.x = (e.clientX - rect.left) / (rect.right - rect.left) * canvas.width;
     Mouse.y = (e.clientY - rect.top) / (rect.bottom - rect.top) * canvas.height;
     
     if (App.mouseDown)
     {
-		console.log('in here?');
+		// console.log('in here?');
     	trackClick(e);
     }
     App.render();
@@ -107,7 +105,6 @@ class Writer
 		for (var i=0; i<paragraphs.length; i++)
     	{
     		const phrase = paragraphs[i];
-    		//console.log("ph", phrase);
     		if (phrase=="")
     		{
     			 phraseArray.push(" ");
@@ -243,7 +240,7 @@ const App = {
 				throw Error(response.statusText)
 			  }
 			  const json = await response.json();
-			//   console.log(json.message);
+			  // console.log(json.message);
 			displayQuote(json.message);
 			} catch (err) {
 			  console.log(err)
@@ -274,7 +271,7 @@ const App = {
     },
 
     blackOut: function(){
-        var element = document.querySelector(".blackOut").addEventListener("click", function(){
+      var element = document.querySelector(".blackOut").addEventListener("click", function(){
 			App.mouseAction = "blackOut";
 			App.render();
 		})
