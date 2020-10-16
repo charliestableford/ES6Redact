@@ -16,7 +16,7 @@ function endClickState(evt)
 
 function trackMouse(evt)
 {
-	console.log('tracking');
+	// console.log('tracking');
 	canvas = document.querySelector(".page");
 	// console.log("moved");
 	const rect = canvas.getBoundingClientRect();
@@ -34,7 +34,7 @@ function trackMouse(evt)
 function trackClick(evt)
 {
 	Mouse.clickedPositions.push({x: Mouse.x, y: Mouse.y, action: App.mouseAction});
-    console.log(evt);
+    // console.log(evt);
 	App.render();
 }
 
@@ -181,38 +181,34 @@ function isCollide(a, mouse) {
 }
 
 let dataURL;
-
-document.querySelector("#btn-download").addEventListener('click',function(event){
-	event.preventDefault();
+document.querySelector(".download").addEventListener("click", function(e){
+	console.log(e);
+	console.log('in');
+	e.preventDefault();
 	dataURL = App.canvas.toDataURL('image/png');
 });
 
-$(".direct").click(function(){
-	uploadCanvas(dataURL);
-});
+// $(".direct").click(function(){
+// 	uploadCanvas(dataURL);
+// });
 
 function uploadCanvas(dataURL){
-	// console.log(dataURL);
+	console.log(dataURL);
 	// debugger;
-	$.ajax(
-		{
-			url: "index.php?controller=pages&route=uploadImg",
-			type: "POST",
-			data: { 
-		  imgBase64: dataURL,
-		 },
-		 success: function(){
-				console.log("It's working! (this part but isn't in the db)"); 
-			},
-	  
-		error: function(response)
-		{
-			console.log('made it in here but in the error function');
-			console.log(dataURL);
-		}
-		   });
-	
-		return false;
+
+	async function saveQuote(){
+			try {
+			  const response = await fetch(endpoint)
+			  if (!response.ok) {
+				throw Error(response.statusText)
+			  }
+			  const data = await response.dataURL();
+			  console.log(data.dataURL);
+			} catch (err) {
+			  console.log(err)
+			  alert('Failed to save quote');
+			}
+	}
 }
 
 
