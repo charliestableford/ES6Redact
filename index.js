@@ -148,7 +148,7 @@ class Word{
 		this.width = this.ctx.measureText(text).width;
 		this.xEnd = x + this.width;
 		this.yEnd = this.boundingY + letterHeight;
-		this.color = "black"; // colour of the text
+		this.color = "black"; 
     this.blackout = false;
 		this.blackOutColor = App.blackOutColor; 
 	}
