@@ -1,39 +1,3 @@
-// var Twit = require('twit')
- 
-// var T = new Twit({
-//   consumer_key: 'InI9wXVP3PTamBWJaBfDuzoFG',
-//   consumer_secret: 'nuFghuu1BFLo8i1vWJJcLkthcgcXKKJy2aT8mlFIfYRbBP80zI',
-//   access_token: '1176892477107662848-5Z0pHdoX5OiVRaqO3fxyQ1AEesB5cT',
-//   access_token_secret: '8XXHKP3AeG42N8m8PHGiC9Sny4QCIzODV6RA4qDJ6ZGOU',
-//   timeout_ms: 60*1000,  // optional HTTP request timeout to apply to all requests.
-//   strictSSL: true,     // optional - requires SSL certificates to be valid.
-// })
-
-// // post a tweet with media
-// //
-// var b64content = fs.readFileSync('imgs/bernie.png')
- 
-// // first we must post the media to Twitter
-// T.post('media/upload', { media_data: b64content }, function (err, data, response) {
-//   // now we can assign alt text to the media, for use by screen readers and
-//   // other text-based presentations and interpreters
-//   var mediaIdStr = data.media_id_string
-//   var altText = "Small flowers in a planter on a sunny balcony, blossoming."
-//   var meta_params = { media_id: mediaIdStr, alt_text: { text: altText } }
- 
-//   T.post('media/metadata/create', meta_params, function (err, data, response) {
-//     if (!err) {
-//       // now we can reference the media and post a tweet (media will attach to the tweet)
-//       var params = { status: 'loving life #nofilter', media_ids: [mediaIdStr] }
- 
-//       T.post('statuses/update', params, function (err, data, response) {
-//         console.log(data)
-//       })
-//     }
-//   })
-// })
-
-
 const Mouse = {
 	x: 0,
 	y: 0,
