@@ -1,3 +1,39 @@
+// var Twit = require('twit')
+ 
+// var T = new Twit({
+//   consumer_key: 'InI9wXVP3PTamBWJaBfDuzoFG',
+//   consumer_secret: 'nuFghuu1BFLo8i1vWJJcLkthcgcXKKJy2aT8mlFIfYRbBP80zI',
+//   access_token: '1176892477107662848-5Z0pHdoX5OiVRaqO3fxyQ1AEesB5cT',
+//   access_token_secret: '8XXHKP3AeG42N8m8PHGiC9Sny4QCIzODV6RA4qDJ6ZGOU',
+//   timeout_ms: 60*1000,  // optional HTTP request timeout to apply to all requests.
+//   strictSSL: true,     // optional - requires SSL certificates to be valid.
+// })
+
+// // post a tweet with media
+// //
+// var b64content = fs.readFileSync('imgs/bernie.png')
+ 
+// // first we must post the media to Twitter
+// T.post('media/upload', { media_data: b64content }, function (err, data, response) {
+//   // now we can assign alt text to the media, for use by screen readers and
+//   // other text-based presentations and interpreters
+//   var mediaIdStr = data.media_id_string
+//   var altText = "Small flowers in a planter on a sunny balcony, blossoming."
+//   var meta_params = { media_id: mediaIdStr, alt_text: { text: altText } }
+ 
+//   T.post('media/metadata/create', meta_params, function (err, data, response) {
+//     if (!err) {
+//       // now we can reference the media and post a tweet (media will attach to the tweet)
+//       var params = { status: 'loving life #nofilter', media_ids: [mediaIdStr] }
+ 
+//       T.post('statuses/update', params, function (err, data, response) {
+//         console.log(data)
+//       })
+//     }
+//   })
+// })
+
+
 const Mouse = {
 	x: 0,
 	y: 0,
@@ -168,7 +204,6 @@ if (this.blackOut)
 }
 
 function isCollide(a, mouse) {
-	//console.log(a, mouse);
     if (
     	(a.x < mouse.x) &&
     	(a.xEnd > mouse.x) &&
@@ -180,52 +215,39 @@ function isCollide(a, mouse) {
     }
 }
 
-let dataURL;
-document.querySelector(".download").addEventListener("click", function(e){
-	console.log(e);
-	// console.log('in');
-	e.preventDefault();
-	dataURL = App.canvas.toDataURL('image/png');
-	localStorage.setItem("image",dataURL);
-	// document.write('<img src="'+dataURL+'"/>');
-	getLocal();
-});
+// let dataURL;
+// document.querySelector(".twitter-share-button").addEventListener("click", function(e){
+// 	console.log(e);
+// 	// console.log('in');
+// 	e.preventDefault();
+// 	dataURL = App.canvas.toDataURL('image/png');
+// 	localStorage.setItem("image",dataURL);
+// 	// document.write('<img src="'+dataURL+'"/>');
+// 	popUp();
+// });
 
-function getLocal(){
-	let getInfo= localStorage.getItem("image",dataURL);
-	console.log(getInfo);
-	      // Opens a pop-up with twitter sharing dialog
-		  const shareURL = "http://twitter.com/share?"; //url base
-		  //params
-		  const params = {
-			url: "http://google.com", 
-			text: getLocal(),
-			via: "theRealDonaldTrump",
-			hashtags: "donald,blackOut"
-		  }
-		  for(var prop in params) 
-		  shareURL += '&' + prop + '=' + encodeURIComponent(params[prop]);
-		  window.open(shareURL, '', 'left=0,top=0,width=550,height=450,personalbar=0,toolbar=0,scrollbars=0,resizable=0');
-}
+// function popUp(){
+//   let result = localStorage.getItem("image",dataURL);
+//   	// result = document.write('<img src="'+dataURL+'"/>');
+//   // let result = 'cheese';
+// 	//  console.log(result);
 
-// 	async function saveQuote(){
-// 			try {
-// 			  const response = await fetch(endpoint)
-// 			  if (!response.ok) {
-// 				throw Error(response.statusText)
-// 			  }
-// 			  const data = await response.dataURL();
-// 			  console.log(data.dataURL);
-// 			} catch (err) {
-// 			  console.log(err)
-// 			  alert('Failed to save quote');
-// 			}
+// 	let shareURL = "http://twitter.com/share?"; //url base
+// 	//params
+// 	let params = {
+// 	url: "http://charliestableford.com", 
+// 	// text: `${result}`,
+// 	via: "theRealDonaldTrump",
+// 	hashtags: "redact,blackOut"
 // 	}
+// 	for(var prop in params) 
+// 	shareURL += '&' + prop + '=' + encodeURIComponent(params[prop]);
+// 	window.open(shareURL, '', 'left=0,top=0,width=550,height=450,personalbar=0,toolbar=0,scrollbars=0,resizable=0');
 // }
 
 const App = {
     blackOutColor: "black",
-	mouseAction: "blackOut", 
+	  mouseAction: "blackOut", 
     canvas: document.querySelector(".page"),
     ctx: document.querySelector(".page").getContext("2d"),
     clickedPositions: Mouse.clickedPositions,
@@ -240,33 +262,31 @@ const App = {
 		});
 
 		document.querySelector(".quoteOne").addEventListener("click", function(){  
-			
+		const endpoint = 'https://api.whatdoestrumpthink.com/api/v1/quotes/random';
 
-		// const endpoint = 'https://api.whatdoestrumpthink.com/api/v1/quotes/random';
+		async function getQuote() {
+			try {
+			  const response = await fetch(endpoint)
+			  if (!response.ok) {
+				throw Error(response.statusText)
+			  }
+			  const json = await response.json();
+			//   console.log(json.message);
+			displayQuote(json.message);
+			} catch (err) {
+			  console.log(err)
+			  alert('Failed to fetch new quote');
+			}
+		  }
 
-		// async function getQuote() {
-		// 	try {
-		// 	  const response = await fetch(endpoint)
-		// 	  if (!response.ok) {
-		// 		throw Error(response.statusText)
-		// 	  }
-		// 	  const json = await response.json();
-		// 	//   console.log(json.message);
-		// 	displayQuote(json.message);
-		// 	} catch (err) {
-		// 	  console.log(err)
-		// 	  alert('Failed to fetch new quote');
-		// 	}
-		//   }
+		  function displayQuote(quote) {
+			const quoteText = document.querySelector('.page');
+			quoteText.textContent = quote;
+			console.log(quote);
+		  }
 
-		//   function displayQuote(quote) {
-		// 	const quoteText = document.querySelector('.page');
-		// 	quoteText.textContent = quote;
-		// 	console.log(quote);
-		//   }
-
-			//   App.quote = getQuote();
-            App.quote =  quoteArrOne[Math.floor(Math.random()*quoteArrOne.length)];
+			  App.quote = getQuote();
+            // App.quote =  quoteArrOne[Math.floor(Math.random()*quoteArrOne.length)];
             App.blackOut();
             App.render();
             App.clear();       
@@ -275,8 +295,7 @@ const App = {
 	},
     clear: function(clickedPositions){
             App.ctx.beginPath();
-            App.ctx.clearRect(0, 0, canvas.width, canvas.height);
-            // clickX = []; clickY = []; clickDrag = [];  
+            App.ctx.clearRect(0, 0, canvas.width, canvas.height); 
             Mouse.clickedPositions= [];
             App.blackOut();
             App.render();
@@ -285,7 +304,6 @@ const App = {
     blackOut: function(){
         var element = document.querySelector(".blackOut").addEventListener("click", function(){
 			App.mouseAction = "blackOut";
-            // console.log("We in here");
 			App.render();
 		})
 	},
@@ -299,9 +317,9 @@ const App = {
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
 		writer = new Writer(ctx, 28);
 
-		quoteArrOne = ["China is doing very badly, worst year in 27 - was supposed to start buying our agricultural product now - no signs that they are doing so. That is the problem with China, they just don’t come through. Our Economy has become MUCH larger than the Chinese Economy is last 3 years....", "It snowed over 4 inches this past weekend in New York City. It is still October. So much for Global Warming.", "Newly released emails prove that scientists have manipulated data on global warming. The data is unreliable.", "In the 1920's people were worried about global cooling--it never happened. Now it's global warming. Give me a break!", "Tonight, we forcefully condemn the blatant corruption of the Democrat Party, the Fake News Media, and the rogue bureaucrats of the Deep State. The only message these radicals will understand is a crushing defeat on November 3, 2020!", "Despite the negative press, covefefe", "Crazy Joe Biden is trying to act like a tough guy. Actually, he is weak, both mentally and physically, and yet he threatens me, for the second time, with physical assault. He doesn't know me, but he would go down fast and hard, crying all the way. Don’t threaten people Joe!", "Why would Kim Jong-un insult me by calling me 'old,' when I would NEVER call him 'short and fat?' Oh well, I try so hard to be his friend - and maybe someday that will happen!", "The number of Coronavirus cases is strongly trending downward throughout the United States, with few exceptions. Very good news, indeed!"], "Was just informed that the Fake News from the Thursday White House Press Conference had me speaking & asking questions of Dr. Deborah Birx. Wrong, I was speaking to our Laboratory expert, not Deborah, about sunlight etc. & the CoronaVirus. The Lamestream Media is corrupt & sick!";
+		// quoteArrOne = ["China is doing very badly, worst year in 27 - was supposed to start buying our agricultural product now - no signs that they are doing so. That is the problem with China, they just don’t come through. Our Economy has become MUCH larger than the Chinese Economy is last 3 years....", "It snowed over 4 inches this past weekend in New York City. It is still October. So much for Global Warming.", "Newly released emails prove that scientists have manipulated data on global warming. The data is unreliable.", "In the 1920's people were worried about global cooling--it never happened. Now it's global warming. Give me a break!", "Tonight, we forcefully condemn the blatant corruption of the Democrat Party, the Fake News Media, and the rogue bureaucrats of the Deep State. The only message these radicals will understand is a crushing defeat on November 3, 2020!", "Despite the negative press, covefefe", "Crazy Joe Biden is trying to act like a tough guy. Actually, he is weak, both mentally and physically, and yet he threatens me, for the second time, with physical assault. He doesn't know me, but he would go down fast and hard, crying all the way. Don’t threaten people Joe!", "Why would Kim Jong-un insult me by calling me 'old,' when I would NEVER call him 'short and fat?' Oh well, I try so hard to be his friend - and maybe someday that will happen!", "The number of Coronavirus cases is strongly trending downward throughout the United States, with few exceptions. Very good news, indeed!"], "Was just informed that the Fake News from the Thursday White House Press Conference had me speaking & asking questions of Dr. Deborah Birx. Wrong, I was speaking to our Laboratory expert, not Deborah, about sunlight etc. & the CoronaVirus. The Lamestream Media is corrupt & sick!";
 
-		String(quoteArrOne);
+		// String(quoteArrOne);
         // console.log(this.quote);
 		// console.log(typeof quoteArrOne);
 		writer.write(this.quote);
