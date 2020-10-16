@@ -61,7 +61,7 @@ class Writer
 
 	splitWordsIntoObject(line, x, y)
 	{
-        var clickedArr =  Mouse.clickedPositions;
+    var clickedArr =  Mouse.clickedPositions;
 		var words = line.split(" ");
 		var lastWordEndXPos = 0;
 		for(var i=0;i<words.length;i++)
@@ -231,31 +231,31 @@ const App = {
 		});
 
 		document.querySelector(".quoteOne").addEventListener("click", function(){  
-		const endpoint = 'https://api.whatdoestrumpthink.com/api/v1/quotes/random';
+		// const endpoint = 'https://api.whatdoestrumpthink.com/api/v1/quotes/random';
 
-		async function getQuote() {
-			try {
-			  const response = await fetch(endpoint)
-			  if (!response.ok) {
-				throw Error(response.statusText)
-			  }
-			  const json = await response.json();
-			  // console.log(json.message);
-			displayQuote(json.message);
-			} catch (err) {
-			  console.log(err)
-			  alert('Failed to fetch new quote');
-			}
-		  }
+		// async function getQuote() {
+		// 	try {
+		// 	  const response = await fetch(endpoint)
+		// 	  if (!response.ok) {
+		// 		throw Error(response.statusText)
+		// 	  }
+		// 	  const json = await response.json();
+		// 	  // console.log(json.message);
+		// 	displayQuote(json.message);
+		// 	} catch (err) {
+		// 	  console.log(err)
+		// 	  alert('Failed to fetch new quote');
+		// 	}
+		//   }
 
-		  function displayQuote(quote) {
-			const quoteText = document.querySelector('.page');
-			quoteText.textContent = quote;
-			console.log(quote);
-		  }
+		//   function displayQuote(quote) {
+		// 	const quoteText = document.querySelector('.page');
+		// 	quoteText.textContent = quote;
+		// 	console.log(quote);
+		//   }
 
-			  App.quote = getQuote();
-            // App.quote =  quoteArrOne[Math.floor(Math.random()*quoteArrOne.length)];
+			  // App.quote = getQuote();
+            App.quote =  quoteArrOne[Math.floor(Math.random()*quoteArrOne.length)];
             App.blackOut();
             App.render();
             App.clear();       
@@ -286,9 +286,9 @@ const App = {
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
 		writer = new Writer(ctx, 28);
 
-		// quoteArrOne = ["China is doing very badly, worst year in 27 - was supposed to start buying our agricultural product now - no signs that they are doing so. That is the problem with China, they just don’t come through. Our Economy has become MUCH larger than the Chinese Economy is last 3 years....", "It snowed over 4 inches this past weekend in New York City. It is still October. So much for Global Warming.", "Newly released emails prove that scientists have manipulated data on global warming. The data is unreliable.", "In the 1920's people were worried about global cooling--it never happened. Now it's global warming. Give me a break!", "Tonight, we forcefully condemn the blatant corruption of the Democrat Party, the Fake News Media, and the rogue bureaucrats of the Deep State. The only message these radicals will understand is a crushing defeat on November 3, 2020!", "Despite the negative press, covefefe", "Crazy Joe Biden is trying to act like a tough guy. Actually, he is weak, both mentally and physically, and yet he threatens me, for the second time, with physical assault. He doesn't know me, but he would go down fast and hard, crying all the way. Don’t threaten people Joe!", "Why would Kim Jong-un insult me by calling me 'old,' when I would NEVER call him 'short and fat?' Oh well, I try so hard to be his friend - and maybe someday that will happen!", "The number of Coronavirus cases is strongly trending downward throughout the United States, with few exceptions. Very good news, indeed!"], "Was just informed that the Fake News from the Thursday White House Press Conference had me speaking & asking questions of Dr. Deborah Birx. Wrong, I was speaking to our Laboratory expert, not Deborah, about sunlight etc. & the CoronaVirus. The Lamestream Media is corrupt & sick!";
+		quoteArrOne = ["China is doing very badly, worst year in 27 - was supposed to start buying our agricultural product now - no signs that they are doing so. That is the problem with China, they just don’t come through. Our Economy has become MUCH larger than the Chinese Economy is last 3 years....", "It snowed over 4 inches this past weekend in New York City. It is still October. So much for Global Warming.", "Newly released emails prove that scientists have manipulated data on global warming. The data is unreliable.", "In the 1920's people were worried about global cooling--it never happened. Now it's global warming. Give me a break!", "Tonight, we forcefully condemn the blatant corruption of the Democrat Party, the Fake News Media, and the rogue bureaucrats of the Deep State. The only message these radicals will understand is a crushing defeat on November 3, 2020!", "Despite the negative press, covefefe", "Crazy Joe Biden is trying to act like a tough guy. Actually, he is weak, both mentally and physically, and yet he threatens me, for the second time, with physical assault. He doesn't know me, but he would go down fast and hard, crying all the way. Don’t threaten people Joe!", "Why would Kim Jong-un insult me by calling me 'old,' when I would NEVER call him 'short and fat?' Oh well, I try so hard to be his friend - and maybe someday that will happen!", "The number of Coronavirus cases is strongly trending downward throughout the United States, with few exceptions. Very good news, indeed!"], "Was just informed that the Fake News from the Thursday White House Press Conference had me speaking & asking questions of Dr. Deborah Birx. Wrong, I was speaking to our Laboratory expert, not Deborah, about sunlight etc. & the CoronaVirus. The Lamestream Media is corrupt & sick!";
 
-		// String(quoteArrOne);
+		String(quoteArrOne);
         // console.log(this.quote);
 		// console.log(typeof quoteArrOne);
 		writer.write(this.quote);
@@ -299,6 +299,7 @@ const App = {
 
 App.init();
 
+// document.addEventListener.contentLoaded;
 window.addEventListener('mousemove', trackMouse, false);
 window.addEventListener('click', trackClick, false);
 window.addEventListener("mousedown", trackClickState, false);

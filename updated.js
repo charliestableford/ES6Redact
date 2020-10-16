@@ -1,23 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:creator" content="@username of content creator"> 
-<meta name="twitter:title" content="title of site">
-<meta name="twitter:description" content="Description of content (maximum 200 characters)">
-<meta name="twitter:image:src" content=”path/to/image/">
-    <link rel="stylesheet" type="text/css" href="site.css">
+const init = () => {
+    document.getElementById('app').innerHTML = app();
+}
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Redact</title>
-</head>
-<body>
+const app = () =>
+`
+<h1>${Header()}</h1>
+${Game()}
+`;
+
+const Header = () => `Hello World`;
+const Game = () => `
 <div class="draw">
 <div class="process"></div>
     <div class="titleDraw">Redact</div>
 
-    
+
     <div class="leftSide">
         <button class="quoteOne"><img src="imgs/trump.png">Donald Trump</button>
     </div>
@@ -43,8 +40,5 @@ Tweet</a>
     <hr>
     <hr>
     <hr>
-
-<script type="text/javascript" src="index.js"></script>
-</body>
-</html>
-
+`
+document.addEventListener('DOMContentLoaded', init);
